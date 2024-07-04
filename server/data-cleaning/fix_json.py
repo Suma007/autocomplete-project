@@ -19,5 +19,4 @@ def fix_json_formatting(input_file, output_file):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-
-fix_json_formatting(r'server\data.json', r'server\fixed_data.json')
+fix_json_formatting(r'server\data-cleaning\data.json', r'server\fixed_data.json')
