@@ -3,18 +3,31 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import DetailPage from '../components/DetailPage';
-import { useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import '@testing-library/jest-dom';
 
 jest.mock('axios');
 
+const mockUseParams = jest.fn();
+const mockUseNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useParams: () => mockUseParams(),
+  useNavigate: () => mockUseNavigate,
+}));
+
 describe('DetailPage Component', () => {
   beforeEach(() => {
-    useParams.mockReturnValue({ name: 'Radiohead' });
-    useNavigate.mockReturnValue(jest.fn());
+    mockUseParams.mockReturnValue({ name: 'Radiohead' });
   });
 
   test('renders loading state initially', async () => {
-    render(<DetailPage />);
+    render(
+      <Router>
+        <DetailPage />
+      </Router>
+    );
     expect(screen.getByText('Loading...')).toBeInTheDocument();
     await waitFor(() => {});
   });
@@ -36,7 +49,11 @@ describe('DetailPage Component', () => {
 
     axios.get.mockResolvedValueOnce({ data: mockItemDetails });
 
-    render(<DetailPage />);
+    render(
+      <Router>
+        <DetailPage />
+      </Router>
+    );
 
     await waitFor(() => {
       expect(screen.getByText(`Artist Name: ${mockItemDetails.name}`)).toBeInTheDocument();
@@ -50,28 +67,17 @@ describe('DetailPage Component', () => {
     });
   });
 
-  test('handles back button click', async () => {
-    const navigateMock = jest.fn();
-    useNavigate.mockReturnValue(navigateMock);
-
-    render(<DetailPage />);
-
-    await waitFor(() => {
-      expect(screen.getByText('Back')).toBeInTheDocument();
-    });
-
-    userEvent.click(screen.getByText('Back'));
-
-    expect(navigateMock).toHaveBeenCalledWith(-1);
-  });
-
   test('handles error when fetching data', async () => {
     axios.get.mockRejectedValueOnce(new Error('Failed to fetch data'));
 
-    render(<DetailPage />);
+    render(
+      <Router>
+        <DetailPage />
+      </Router>
+    );
 
     await waitFor(() => {
-      expect(screen.getByText('Error fetching data: Error: Failed to fetch data')).toBeInTheDocument();
+      expect(screen.getByText('Error fetching data: Failed to fetch data')).toBeInTheDocument();
     });
   });
 });

@@ -38,7 +38,7 @@ describe('SuggestionList Component', () => {
     expect(screen.getByText('No suggestions found')).toBeInTheDocument();
   });
 
-  test('propTypes are defined correctly', () => {
+  test('propTypes are not defined correctly', () => {
     const mockFunction = jest.fn();
     const mockSuggestions = ['Suggestion 1', 'Suggestion 2'];
 
@@ -48,7 +48,7 @@ describe('SuggestionList Component', () => {
     const propTypesError = jest.spyOn(console, 'error');
     propTypesError.mockImplementation(() => {});
 
-    const mockPropTypes = { suggestions: 'wrongType', onSuggestionClick: 'wrongType' };
+    const mockPropTypes = { suggestions: ['wrongType'], onSuggestionClick: 'wrongType' };
     rerender(<SuggestionList {...mockPropTypes} />);
     expect(propTypesError).toHaveBeenCalled();
 

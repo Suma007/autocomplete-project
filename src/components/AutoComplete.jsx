@@ -31,7 +31,7 @@ const AutoComplete = () => {
             } else {
                 setSuggestions([]);
             }
-        }, 300);
+        }, 300); // Adjust debounce delay as needed (e.g., 300ms)
 
         // Cleanup function to clear timeout
         return () => clearTimeout(delayDebounceFn);
