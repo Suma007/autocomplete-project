@@ -28,6 +28,9 @@ const rankSuggestions = (query, suggestions) => {
 
 // Endpoint to fetch suggestions
 app.get('/suggestions', (req, res) => {
+    if (!req.query.q) {
+        return res.status(400).json({ error: 'No query parameter provided' });
+    }
     const query = req.query.q.toLowerCase();
     const results = [];
 
@@ -65,6 +68,8 @@ app.get('/fetchData', (req, res) => {
 
     if(results.length > 0){
         results = results[0];
+    } else {
+        results = {}
     }
 
     res.json(results);
@@ -72,3 +77,5 @@ app.get('/fetchData', (req, res) => {
 
 const PORT = 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;
