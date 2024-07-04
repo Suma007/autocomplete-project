@@ -6,12 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Autocomplete />} />
-        <Route path="/detail/:name" element={<DetailPage />} />
-      </Routes>
-    </Router>
+    <div className="text-bg-light">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Autocomplete />} />
+          <Route path="/detail/:name" element={<DetailPage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

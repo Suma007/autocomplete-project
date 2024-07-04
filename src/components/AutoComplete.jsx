@@ -24,16 +24,14 @@ const AutoComplete = () => {
             }
         };
 
-        // Debounce function to delay API calls
         const delayDebounceFn = setTimeout(() => {
             if (query.length > 0) {
                 fetchSuggestions();
             } else {
                 setSuggestions([]);
             }
-        }, 300); // Adjust debounce delay as needed (e.g., 300ms)
+        }, 300);
 
-        // Cleanup function to clear timeout
         return () => clearTimeout(delayDebounceFn);
     }, [query]);
 

@@ -22,5 +22,3 @@ A search box that allows users to search for artists which includes an autocompl
 - Prefix matches are displayed second.
 - Substring matches are displayed last.
 
-## Video Demo
-

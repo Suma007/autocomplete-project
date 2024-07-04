@@ -11,13 +11,13 @@ const SuggestionList = ({ suggestions, onSuggestionClick }) => {
                         <li 
                             key={index} 
                             onClick={() => onSuggestionClick(suggestion)} 
-                            className="suggestion-item"
+                            className="suggestion-item list-group-item"
                         >
                             {suggestion}
                         </li>
                     ))
                 ) : (
-                    <li className="no-suggestions">No suggestions found</li> 
+                    <li className="no-suggestions list-group-item">No suggestions found</li> 
                 )}
             </ul>
         </div>

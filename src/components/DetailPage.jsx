@@ -56,8 +56,10 @@ const DetailPage = () => {
 
     return (
         <div className="container">
-            <button className="btn btn-outline-primary mb-3" onClick={handleBack}>Back</button>
-            <h1>Artist Name: {itemDetails.name}</h1>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <button className="btn btn-outline-primary" onClick={handleBack}>Back</button>
+                <h1 className="mb-0">Artist Name: {itemDetails.name}</h1>
+            </div>
             <br />
             <div className='accordion'>
                 {itemDetails.albums.map((album, index) => (
@@ -68,7 +70,7 @@ const DetailPage = () => {
                             <span>The songs in the album are:</span>
                             <ul>
                                 {album.songs.map((song, index) => (
-                                    <li key={index}>{song.title} - {song.length}</li>
+                                    <li className="list-group-item" key={index}>{song.title} - {song.length}s</li>
                                 ))}
                             </ul>
                         </div>
